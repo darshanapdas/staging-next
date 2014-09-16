@@ -77,10 +77,9 @@ enum {
 static inline int cfs_fail_check_set(__u32 id, __u32 value,
 				     int set, int quiet)
 {
-	int ret = 0;
+	int ret = __cfs_fail_check_set(id, value, set);
 
-	if (unlikely(CFS_FAIL_PRECHECK(id) &&
-		     (ret = __cfs_fail_check_set(id, value, set)))) {
+	if (unlikely(CFS_FAIL_PRECHECK(id) && ret)) {
 		if (quiet) {
 			CDEBUG(D_INFO, "*** cfs_fail_loc=%x, val=%u***\n",
 			       id, value);
