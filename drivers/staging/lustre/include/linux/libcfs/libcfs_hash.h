@@ -454,7 +454,7 @@ cfs_hash_bkt_size(struct cfs_hash *hs)
 	       hs->hs_extra_bytes;
 }
 
-#define CFS_HOP(hs, op)	   (hs)->hs_ops->hs_ ## op
+#define CFS_HOP(hs, op)	   ((hs)->hs_ops->hs_ ## op)
 
 static inline unsigned
 cfs_hash_id(struct cfs_hash *hs, const void *key, unsigned mask)
