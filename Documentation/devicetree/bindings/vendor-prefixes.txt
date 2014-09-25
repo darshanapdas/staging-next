@@ -69,6 +69,7 @@ intel	Intel Corporation
 intercontrol	Inter Control Group
 isee	ISEE 2007 S.L.
 isl	Intersil
+isil	Deprecated name, use isl instead
 karo	Ka-Ro electronics GmbH
 keymile	Keymile GmbH
 lacie	LaCie
