@@ -688,12 +688,12 @@ int rtllib_xmit_inter(struct sk_buff *skb, struct net_device *dev)
 				memcpy(&header.addr3,
 				       ieee->current_network.bssid, ETH_ALEN);
 			else
-				memcpy(&header.addr3, &dest, ETH_ALEN);
+				ether_addr_copy(&header.addr3, &dest);
 		} else if (ieee->iw_mode == IW_MODE_ADHOC) {
 			/* not From/To DS: Addr1 = DA, Addr2 = SA,
 			Addr3 = BSSID */
-			memcpy(&header.addr1, dest, ETH_ALEN);
-			memcpy(&header.addr2, src, ETH_ALEN);
+			ether_addr_copy(&header.addr1, dest);
+			ether_addr_copy(&header.addr2, src);
 			memcpy(&header.addr3, ieee->current_network.bssid,
 			       ETH_ALEN);
 		}
