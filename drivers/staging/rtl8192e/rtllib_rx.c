@@ -139,8 +139,8 @@ rtllib_frag_cache_get(struct rtllib_device *ieee,
 		entry->seq = seq;
 		entry->last_frag = frag;
 		entry->skb = skb;
-		memcpy(entry->src_addr, hdr->addr2, ETH_ALEN);
-		memcpy(entry->dst_addr, hdr->addr1, ETH_ALEN);
+		ether_addr_copy(entry->src_addr, hdr->addr2);
+		ether_addr_copy(entry->dst_addr, hdr->addr1);
 	} else {
 		/* received a fragment of a frame for which the head fragment
 		 * should have already been received */
@@ -397,7 +397,7 @@ static int is_duplicate_packet(struct rtllib_device *ieee,
 			if (!entry)
 				return 0;
 
-			memcpy(entry->mac, mac, ETH_ALEN);
+			ether_addr_copy(entry->mac, mac);
 			entry->seq_num[tid] = seq;
 			entry->frag_num[tid] = frag;
 			entry->packet_time[tid] = jiffies;
@@ -783,8 +783,8 @@ static u8 parse_subframe(struct rtllib_device *ieee, struct sk_buff *skb,
 		return 1;
 	} else {
 		rxb->nr_subframes = 0;
-		memcpy(rxb->src, src, ETH_ALEN);
-		memcpy(rxb->dst, dst, ETH_ALEN);
+		ether_addr_copy(rxb->src, src);
+		ether_addr_copy(rxb->dst, dst);
 		while (skb->len > ETHERNET_HEADER_SIZE) {
 			/* Offset 12 denote 2 mac address */
 			nSubframe_Length = *((u16 *)(skb->data + 12));
@@ -917,24 +917,24 @@ static void rtllib_rx_extract_addr(struct rtllib_device *ieee,
 
 	switch (fc & (RTLLIB_FCTL_FROMDS | RTLLIB_FCTL_TODS)) {
 	case RTLLIB_FCTL_FROMDS:
-		memcpy(dst, hdr->addr1, ETH_ALEN);
-		memcpy(src, hdr->addr3, ETH_ALEN);
-		memcpy(bssid, hdr->addr2, ETH_ALEN);
+		ether_addr_copy(dst, hdr->addr1);
+		ether_addr_copy(src, hdr->addr3);
+		ether_addr_copy(bssid, hdr->addr2);
 		break;
 	case RTLLIB_FCTL_TODS:
-		memcpy(dst, hdr->addr3, ETH_ALEN);
-		memcpy(src, hdr->addr2, ETH_ALEN);
-		memcpy(bssid, hdr->addr1, ETH_ALEN);
+		ether_addr_copy(dst, hdr->addr3);
+		ether_addr_copy(src, hdr->addr2);
+		ether_addr_copy(bssid, hdr->addr1);
 		break;
 	case RTLLIB_FCTL_FROMDS | RTLLIB_FCTL_TODS:
-		memcpy(dst, hdr->addr3, ETH_ALEN);
-		memcpy(src, hdr->addr4, ETH_ALEN);
+		ether_addr_copy(dst, hdr->addr3);
+		ether_addr_copy(src, hdr->addr4);
 		memcpy(bssid, ieee->current_network.bssid, ETH_ALEN);
 		break;
 	case 0:
-		memcpy(dst, hdr->addr1, ETH_ALEN);
-		memcpy(src, hdr->addr2, ETH_ALEN);
-		memcpy(bssid, hdr->addr3, ETH_ALEN);
+		ether_addr_copy(dst, hdr->addr1);
+		ether_addr_copy(src, hdr->addr2);
+		ether_addr_copy(bssid, hdr->addr3);
 		break;
 	}
 }
