@@ -248,7 +248,8 @@ int ad_sigma_delta_single_conversion(struct iio_dev *indio_dev,
 	const struct iio_chan_spec *chan, int *val)
 {
 	struct ad_sigma_delta *sigma_delta = iio_device_get_drvdata(indio_dev);
-	unsigned int sample, raw_sample;
+	unsigned int sample;
+	unsigned int uninitialized_var(raw_sample);
 	int ret = 0;
 
 	if (iio_buffer_enabled(indio_dev))
