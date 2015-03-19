@@ -55,6 +55,7 @@ static int dump_channels(const char *dev_dir_name)
 		    check_postfix(ent->d_name, "_raw")) {
 			printf("   %-10s\n", ent->d_name);
 		}
+	closedir(dp);
 
 	return 0;
 }
